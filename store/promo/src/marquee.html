@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--
+  Source for store/promo/marquee-1400x560.png — the Chrome Web Store's marquee
+  promo tile (1400x560, PNG/JPEG, no alpha), used for featured placement.
+
+  2.5:1 and shown large, so it is laid out horizontally: mark + wordmark + one
+  benefit line on the left, the actual reader on the right. The card drops the
+  PREP/COOK/TOTAL row that the screenshots carry — 560px of height does not
+  leave room for it, and the ingredients are the point.
+
+  Palette and type match store/screenshots/* and the small tile. Amounts are
+  what extension/units.js renders in metric, so the panel is truthful.
+
+  Re-render:
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless --disable-gpu --hide-scrollbars --virtual-time-budget=6000 \
+      --window-size=1400,560 \
+      --screenshot=store/promo/marquee-1400x560.png \
+      "file://$PWD/store/promo/src/marquee.html"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#ece5db;--card:#fff;--fg:#23201d;--muted:#7a746c;--accent:#b4513a;
+        --panel:#faf8f5;--border:#e7e2da;--rule:#efe9e0;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{width:1400px;height:560px;overflow:hidden;}
+  body{background:var(--bg);color:var(--fg);
+       font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+       -webkit-font-smoothing:antialiased;}
+
+  .left{position:absolute;left:90px;top:112px;width:590px;}
+  .brandrow{display:flex;align-items:center;gap:22px;}
+  .mark{display:block;filter:drop-shadow(0 6px 14px rgba(35,32,29,.16));}
+  .brandrow h1{font-family:"Playfair Display",Georgia,serif;font-weight:700;
+               font-size:52px;letter-spacing:-.015em;}
+  .rule{width:56px;height:3px;border-radius:2px;background:var(--accent);margin-top:26px;}
+  .tag{margin-top:24px;font-size:23px;line-height:1.45;letter-spacing:.01em;color:var(--muted);}
+  ul{margin-top:30px;padding-left:2px;list-style:none;}
+  li{display:flex;align-items:center;gap:14px;font-size:20px;line-height:1;
+     letter-spacing:.015em;margin-bottom:20px;}
+  li:last-child{margin-bottom:0;}
+  .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);flex:0 0 12px;}
+
+  .card{position:absolute;left:762px;top:60px;width:548px;height:440px;
+        background:var(--card);border-radius:20px;
+        box-shadow:0 18px 44px rgba(35,32,29,.13);padding:26px;}
+  .chead{display:flex;align-items:center;justify-content:space-between;
+         padding-bottom:18px;border-bottom:1px solid var(--rule);}
+  .cbrand{font-size:16px;font-weight:600;color:#4a453f;}
+  .toggle{display:flex;background:#f5f1ea;border-radius:999px;padding:4px;}
+  .toggle span{font-size:12.5px;font-weight:600;padding:6px 14px;border-radius:999px;color:#5c5751;}
+  .toggle .on{background:var(--accent);color:#fff;}
+  .rtitle{margin-top:18px;font-family:"Playfair Display",Georgia,serif;font-weight:700;
+          font-size:29px;line-height:1.15;}
+  .meta{margin-top:6px;font-size:14.5px;color:var(--muted);}
+  .sechead{margin-top:20px;font-size:12.5px;font-weight:700;letter-spacing:.09em;color:var(--accent);}
+  .ing{margin-top:12px;list-style:none;}
+  .ing li{font-size:15.5px;margin-bottom:15px;gap:14px;}
+  .ing .dot{width:7px;height:7px;flex:0 0 7px;}
+  .nutri{position:absolute;left:26px;right:26px;bottom:26px;background:var(--panel);
+         border:1px solid var(--border);border-radius:13px;padding:14px 18px;
+         display:flex;align-items:center;gap:18px;}
+  .nutri .h{font-size:12.5px;font-weight:700;letter-spacing:.09em;color:var(--accent);}
+  .cal{display:flex;align-items:baseline;gap:8px;margin-top:4px;}
+  .cal b{font-size:32px;font-weight:700;letter-spacing:-.02em;}
+  .cal span{font-size:12.5px;color:var(--muted);}
+  .tiles{display:flex;gap:10px;margin-left:auto;}
+  .tile{background:#f5f1ea;border:1px solid var(--border);border-radius:10px;
+        padding:9px 16px;text-align:center;}
+  .tile b{display:block;font-size:14px;font-weight:700;}
+  .tile span{font-size:11.5px;color:var(--muted);}
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="brandrow"><svg xmlns="http://www.w3.org/2000/svg" width="74" height="74" class="mark" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c85e45"/>
+      <stop offset="1" stop-color="#a8442f"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#bg)"/>
+  <!-- recipe card -->
+  <rect x="132" y="96" width="248" height="320" rx="28" fill="#faf5ee"/>
+  <!-- title bar -->
+  <rect x="168" y="140" width="120" height="24" rx="12" fill="#c85e45"/>
+  <!-- ingredient/instruction lines -->
+  <g fill="#d8cfc2">
+    <rect x="168" y="196" width="176" height="16" rx="8"/>
+    <rect x="168" y="232" width="150" height="16" rx="8"/>
+    <rect x="168" y="268" width="176" height="16" rx="8"/>
+    <rect x="168" y="304" width="132" height="16" rx="8"/>
+    <rect x="168" y="340" width="160" height="16" rx="8"/>
+  </g>
+  <!-- fork overlay, "catching" the recipe -->
+  <g stroke="#2c2c2e" stroke-width="14" stroke-linecap="round" fill="none" transform="rotate(18 336 300)">
+    <line x1="336" y1="250" x2="336" y2="372"/>
+    <line x1="316" y1="250" x2="316" y2="292"/>
+    <line x1="356" y1="250" x2="356" y2="292"/>
+    <path d="M316 292 h40" />
+  </g>
+</svg><h1>Recipe Catcher</h1></div>
+    <div class="rule"></div>
+    <p class="tag">Just the ingredients and instructions —<br>no ads, no pop-ups, no life story.</p>
+    <ul>
+      <li><i class="dot"></i>Metric or imperial in a click</li>
+      <li><i class="dot"></i>A tickable shopping list</li>
+      <li><i class="dot"></i>Print or save a clean PDF</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="chead">
+      <div class="cbrand">Recipe Catcher</div>
+      <div class="toggle"><span>Imperial</span><span class="on">Metric</span></div>
+    </div>
+    <div class="rtitle">French Macaron Recipe</div>
+    <div class="meta">By John Kanell · Makes 36</div>
+    <div class="sechead">INGREDIENTS</div>
+    <ul class="ing">
+      <li><i class="dot"></i>168 g blanched almond flour</li>
+      <li><i class="dot"></i>120 g powdered sugar</li>
+      <li><i class="dot"></i>3 large egg whites (100 g)</li>
+      <li><i class="dot"></i>100 g granulated sugar</li>
+    </ul>
+    <div class="nutri">
+      <div>
+        <div class="h">NUTRITION</div>
+        <div class="cal"><b>110</b><span>cal / serving</span></div>
+      </div>
+      <div class="tiles">
+        <div class="tile"><b>2 g</b><span>Protein</span></div>
+        <div class="tile"><b>6 g</b><span>Fat</span></div>
+        <div class="tile"><b>12 g</b><span>Carbs</span></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

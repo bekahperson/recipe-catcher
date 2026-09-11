@@ -67,10 +67,14 @@ card and its unit toggle contradicted the amounts shown); its source is
 `store/screenshots/src/screenshot-03.html`, with the re-render command in that file's
 header comment. AMO accepts the same files. Up to 5; at least 1 required.
 
-### Small promo tile (440x280)
-`store/promo/small-tile-440x280.png` — 440x280, 24-bit PNG, no alpha. Optional for
-submission, but it is what the Web Store shows in category and search grids, so it is
-worth having. Source: `store/promo/src/small-tile.html` (re-render command in its header).
+### Promo tiles
+Both 24-bit PNG, no alpha, sources in `store/promo/src/` with re-render commands in their
+header comments. Neither is required to submit.
+
+- **Small tile** `store/promo/small-tile-440x280.png` (440x280) — what the Web Store shows
+  in category and search grids, so it is worth having.
+- **Marquee** `store/promo/marquee-1400x560.png` (1400x560) — only used if Google features
+  the extension, but it must already be uploaded to be eligible.
 
 ### Pricing
 List **free** on both. The Chrome Web Store no longer supports paid extensions or its
