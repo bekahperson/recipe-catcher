@@ -67,6 +67,11 @@ card and its unit toggle contradicted the amounts shown); its source is
 `store/screenshots/src/screenshot-03.html`, with the re-render command in that file's
 header comment. AMO accepts the same files. Up to 5; at least 1 required.
 
+### Small promo tile (440x280)
+`store/promo/small-tile-440x280.png` — 440x280, 24-bit PNG, no alpha. Optional for
+submission, but it is what the Web Store shows in category and search grids, so it is
+worth having. Source: `store/promo/src/small-tile.html` (re-render command in its header).
+
 ### Pricing
 List **free** on both. The Chrome Web Store no longer supports paid extensions or its
 in-app payments API, so the $0.99 price in the App Store listing does not carry over.

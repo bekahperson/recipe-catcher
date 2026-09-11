@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+  Source for store/promo/small-tile-440x280.png — the Chrome Web Store's small
+  promo tile (440x280, PNG/JPEG, no alpha). Shown small in store grids, so it
+  carries the mark, the name and one line; no UI chrome, nothing to squint at.
+
+  Palette and type match store/screenshots/* (page #ece5db, ink #23201d,
+  muted #7a746c, accent #b4513a, Playfair Display for the wordmark).
+
+  The mark is extension/icon.svg inlined, NOT extension/icons/*.png: those PNGs
+  were exported onto an opaque white background, so their rounded corners carry
+  white and would show as a white square against this cream page. The SVG has
+  the transparency the PNGs lost. Keep them in sync by hand if the art changes.
+
+  Re-render:
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless --disable-gpu --hide-scrollbars --virtual-time-budget=6000 \
+      --window-size=440,280 \
+      --screenshot=store/promo/small-tile-440x280.png \
+      "file://$PWD/store/promo/src/small-tile.html"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#ece5db;--fg:#23201d;--muted:#7a746c;--accent:#b4513a;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{width:440px;height:280px;overflow:hidden;}
+  body{background:var(--bg);color:var(--fg);display:flex;align-items:center;
+       justify-content:center;
+       font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+       -webkit-font-smoothing:antialiased;}
+  .wrap{display:flex;flex-direction:column;align-items:center;text-align:center;}
+  .mark{display:block;filter:drop-shadow(0 6px 14px rgba(35,32,29,.16));}
+  h1{font-family:"Playfair Display",Georgia,serif;font-weight:700;
+     font-size:38px;letter-spacing:-.01em;margin-top:22px;}
+  .rule{width:46px;height:3px;border-radius:2px;background:var(--accent);margin-top:16px;}
+  p{margin-top:16px;font-size:17px;letter-spacing:.015em;color:var(--muted);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" width="92" height="92" class="mark" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c85e45"/>
+      <stop offset="1" stop-color="#a8442f"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#bg)"/>
+  <!-- recipe card -->
+  <rect x="132" y="96" width="248" height="320" rx="28" fill="#faf5ee"/>
+  <!-- title bar -->
+  <rect x="168" y="140" width="120" height="24" rx="12" fill="#c85e45"/>
+  <!-- ingredient/instruction lines -->
+  <g fill="#d8cfc2">
+    <rect x="168" y="196" width="176" height="16" rx="8"/>
+    <rect x="168" y="232" width="150" height="16" rx="8"/>
+    <rect x="168" y="268" width="176" height="16" rx="8"/>
+    <rect x="168" y="304" width="132" height="16" rx="8"/>
+    <rect x="168" y="340" width="160" height="16" rx="8"/>
+  </g>
+  <!-- fork overlay, "catching" the recipe -->
+  <g stroke="#2c2c2e" stroke-width="14" stroke-linecap="round" fill="none" transform="rotate(18 336 300)">
+    <line x1="336" y1="250" x2="336" y2="372"/>
+    <line x1="316" y1="250" x2="316" y2="292"/>
+    <line x1="356" y1="250" x2="356" y2="292"/>
+    <path d="M316 292 h40" />
+  </g>
+</svg>
+    <h1>Recipe Catcher</h1>
+    <div class="rule"></div>
+    <p>Clean, ad-free recipes.</p>
+  </div>
+</body>
+</html>
