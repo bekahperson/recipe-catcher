@@ -15,6 +15,8 @@ Upload artifacts come from `./scripts/build-webext.sh`:
 `Recipe Catcher`
 
 ### Short description / summary (Chrome: 132 max, AMO: 250 max)
+This is also the manifest `description`, which the Chrome Web Store caps at 132 characters
+— `scripts/build-webext.sh` fails the build if it grows past that.
 `Grab just the ingredients and instructions from any recipe page — no ads, no pop-ups. Clean, printable, metric or imperial.`
 
 ### Full description
@@ -107,7 +109,7 @@ self-distribute the signed XPI instead of listing it.
 - **Minimum Firefox version:** 121.0 (MV3 event-page background support)
 - **Source code:** reviewers may request it. Ours is plain, unminified JS with no build
   step for the extension itself, so point them at the uploaded package or this repo.
-- **License:** pick one at submission time (the repo has no `LICENSE` file yet).
+- **License:** MIT (see `LICENSE` at the repo root); select "MIT License" in the AMO form.
 
 ### Note on Firefox host permissions — resolved
 The concern was that Firefox MV3's opt-in `host_permissions` would suppress the on-page

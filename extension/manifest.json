@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Recipe Catcher",
   "version": "1.0",
-  "description": "Grab just the ingredients and instructions from any recipe page — no ads, no pop-ups, no forms. View, print, or save a clean text-only recipe, in metric or imperial.",
+  "description": "Grab just the ingredients and instructions from any recipe page — no ads, no pop-ups. Clean, printable, metric or imperial.",
   "icons": {
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png",

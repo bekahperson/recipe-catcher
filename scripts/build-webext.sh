@@ -17,6 +17,19 @@ OUT="$DIR/dist"
 command -v jq >/dev/null 2>&1 || { echo "jq is required (it ships with macOS)." >&2; exit 1; }
 jq empty "$SRC/manifest.json" || { echo "extension/manifest.json is not valid JSON." >&2; exit 1; }
 
+# Store field limits, Chrome's being the strictest of the three. Exceeding one is an
+# upload rejection rather than a runtime bug, so catch it here instead of at submission.
+check_len() { # field, max
+  local len; len="$(jq -r "(.$1 // \"\") | length" "$SRC/manifest.json")"
+  [ "$len" -le "$2" ] || {
+    echo "manifest .$1 is $len characters; the Chrome Web Store allows $2." >&2
+    echo "  (Firefox AMO is more generous, but one manifest feeds both.)" >&2
+    exit 1
+  }
+}
+check_len name 45
+check_len description 132
+
 rm -rf "$OUT/chrome" "$OUT/firefox" "$OUT/chrome.zip" "$OUT/firefox.zip"
 mkdir -p "$OUT/chrome" "$OUT/firefox"
 
