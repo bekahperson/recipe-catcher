@@ -48,8 +48,9 @@ happens on your device, and nothing is ever uploaded.
 - Firefox: **Shopping** or **Other** (AMO has no food category; "Other" is the honest fit)
 
 ### Privacy policy URL
-Host `store/privacy-policy.html` at a public URL and paste it here. **Required by both
-stores.** A GitHub Pages URL for this repo is the cheapest option.
+Publish `docs/` with GitHub Pages and paste the resulting
+`https://<user>.github.io/<repo>/privacy-policy.html` here. **Required by both stores.**
+`docs/index.html` doubles as the Support / homepage URL the listings ask for.
 
 ### Screenshots
 Reuse `store/screenshots/macos/*.png` — they are already **1280×800**, exactly what the

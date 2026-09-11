@@ -68,8 +68,11 @@ scripts/
   build-xcode.sh        Wrap extension/ into an Xcode project (macOS + iOS)
 test/                   Unit tests for the parser and unit engine
   fixtures/recipe.html    Stable local recipe page used by the Firefox smoke test
+docs/                   Public GitHub Pages site (privacy policy + support page)
+  index.html              Landing / support page
+  privacy-policy.html     The hosted privacy policy
 store/                  Store submission assets (see below)
-  privacy-policy.html     Hostable privacy policy (also .md)
+  privacy-policy.md       Privacy policy source text (hosted copy lives in docs/)
   webstore-listing.md     Chrome Web Store + Firefox AMO copy, permission
                           justifications, reviewer test steps
   app-store-listing.md    Apple: name, subtitle, description, keywords, pricing
@@ -153,6 +156,29 @@ and the extension targets (Signing & Capabilities), and Run. Enable the extensio
 **Settings → Safari → Extensions** on the device. On iOS, "Save to PDF" is done from
 the share sheet in Safari's print preview.
 
+## Publishing the site (privacy policy + support page)
+
+Both stores require a **public privacy-policy URL**, and both ask for a support/homepage
+URL. `docs/` is a self-contained static site that covers all three:
+
+```
+docs/index.html           Landing + support page (the Support / homepage URL)
+docs/privacy-policy.html  The privacy policy (the Privacy Policy URL)
+docs/.nojekyll            Serve the files as-is, skipping Jekyll
+```
+
+No build step, no external assets — all CSS is inline, so it works on any static host.
+To publish with **GitHub Pages**: push this repo to GitHub (it must be **public** for
+Pages on a free account), then **Settings → Pages → Source: Deploy from a branch →
+`main` / `/docs`**. After a minute the pages are live at:
+
+```
+https://<user>.github.io/<repo>/                       <- support / homepage URL
+https://<user>.github.io/<repo>/privacy-policy.html    <- privacy policy URL
+```
+
+Netlify Drop or Cloudflare Pages work too — point either at `docs/`.
+
 ## Publishing to the Chrome Web Store / Firefox AMO
 
 `store/webstore-listing.md` has the ready-to-paste copy, the single-purpose statement,
@@ -166,15 +192,15 @@ a justification for every permission, and reviewer test steps.
   Reviewers may ask for source; ours is unminified plain JS. You can also self-distribute
   the signed XPI.
 
-Both stores require a hosted privacy policy — publish `store/privacy-policy.html`
-(e.g. GitHub Pages) and fill in its contact-email placeholder first.
+Both stores require a hosted privacy policy. `docs/` is a ready-to-publish GitHub Pages
+site containing it — see **Publishing the site** below.
 
 ## Publishing to the App Store (Safari)
 
 The `store/` folder has the paperwork ready:
 
-- **Privacy policy** — host `store/privacy-policy.html` anywhere (e.g. GitHub Pages) and
-  use its URL in App Store Connect. Fill in the contact email placeholder first.
+- **Privacy policy** — served from `docs/` (see **Publishing the site**); use that public
+  URL in App Store Connect.
 - **Listing copy** — `store/app-store-listing.md` (name, subtitle, description, keywords,
   category, and pricing notes for the $0.99 tier).
 - **Review notes** — `store/review-notes.md` (how to enable + test; paste into App Review

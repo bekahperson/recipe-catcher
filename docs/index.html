@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recipe Catcher — clean, ad-free recipes</title>
+  <meta name="description" content="Grab just the ingredients and instructions from any recipe page — no ads, no pop-ups. Clean, printable, metric or imperial." />
+  <style>
+    :root { color-scheme: light dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 48px 20px; line-height: 1.6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      color: #23201d; background: #faf8f5;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; }
+    h1 { font-size: 34px; margin: 0 0 6px; }
+    h2 { font-size: 18px; margin: 34px 0 8px; }
+    .tagline { font-size: 18px; color: #7a746c; margin: 0 0 26px; }
+    .lede {
+      background: #fff; border: 1px solid #e7e2da; border-radius: 12px;
+      padding: 16px 18px; font-size: 16px;
+    }
+    a { color: #b4513a; }
+    ul { padding-left: 22px; }
+    li { margin: 4px 0; }
+    .links { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .links a {
+      display: inline-block; text-decoration: none; font-weight: 600; font-size: 15px;
+      border: 1px solid #e7e2da; background: #fff; border-radius: 10px; padding: 10px 16px;
+    }
+    .links a:hover { border-color: #b4513a; }
+    footer { margin-top: 44px; color: #7a746c; font-size: 13px; }
+    @media (prefers-color-scheme: dark) {
+      body { color: #f0ece5; background: #191715; }
+      .lede, .links a { background: #221f1c; border-color: #35312c; }
+      .tagline, footer { color: #a49d93; }
+      a { color: #e0785f; }
+      .links a:hover { border-color: #e0785f; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>🍴 Recipe Catcher</h1>
+    <p class="tagline">Clean, ad-free recipes — in your browser.</p>
+
+    <p class="lede">Grab just the ingredients and instructions from any recipe page — no
+      ads, no pop-ups, no life story. View, print, or save a clean text-only recipe, in
+      metric or imperial.</p>
+
+    <h2>What it does</h2>
+    <ul>
+      <li>Pulls the recipe out of the page and opens it in a clean, readable tab</li>
+      <li>One click between <strong>metric and imperial</strong> — dry goods in grams, liquids in ml</li>
+      <li>Oven temperatures annotated both ways, e.g. <em>450&nbsp;degrees&nbsp;F (232°C)</em></li>
+      <li>Adjust the servings and every quantity rescales</li>
+      <li>A shopping list with tickable checkboxes, and a Copy button</li>
+      <li>Estimated nutrition per serving</li>
+      <li>Print or save a tidy PDF</li>
+      <li>Automatic light and dark mode</li>
+    </ul>
+
+    <h2>Private by design</h2>
+    <p>Recipe Catcher has no accounts, no servers, no analytics, and makes no network
+      requests. Everything happens on your device, and nothing is ever uploaded.</p>
+
+    <h2>Support</h2>
+    <p>Questions, bugs, or a recipe site that doesn't work?
+      Email <a href="mailto:recipecatcher.support@gmail.com">recipecatcher.support@gmail.com</a>.</p>
+
+    <div class="links">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="mailto:recipecatcher.support@gmail.com">Contact Support</a>
+    </div>
+
+    <footer>Recipe Catcher — a local, private recipe reader.</footer>
+  </div>
+</body>
+</html>

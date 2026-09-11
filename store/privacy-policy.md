@@ -1,6 +1,6 @@
 # Privacy Policy — Recipe Catcher
 
-**Last updated: August 2, 2026**
+**Last updated: September 11, 2026**
 
 Recipe Catcher is designed to protect your privacy. In short: **it collects nothing,
 sends nothing, and has no accounts, ads, or trackers.** Everything happens locally in
@@ -14,10 +14,14 @@ user accounts.
 
 ## How the extension works with page content
 
-When — and only when — you click **Catch this recipe** on a page, the extension reads
-the content of that single page in order to extract the recipe (ingredients and
-instructions). This reading and extraction happen entirely on your device. The recipe
-text is never sent to us or to any third party.
+Recipe Catcher includes a small helper that loads on the pages you visit. On each page it
+checks, locally, whether that page's markup contains structured recipe data — that check is
+what lets it offer the "Catch this recipe?" prompt. When — and only when — you then click
+**Catch this recipe**, it reads that single page in full to extract the ingredients and
+instructions.
+
+Both the check and the extraction happen entirely on your device. No page content and no
+recipe text is ever sent to us or to any third party.
 
 ## Information stored on your device
 
@@ -32,10 +36,10 @@ when you uninstall the extension. It is never uploaded anywhere.
 
 ## Permissions and why they are used
 
-- **Website access + scripting** — Recipe Catcher includes a small helper that loads on
-  the pages you visit so it is ready the instant you click. That helper does nothing on
-  its own: it only reads and extracts a recipe when you click "Catch this recipe," and it
-  never changes the page or sends anything anywhere.
+- **Website access + scripting** — so the helper can load on the pages you visit, check
+  locally whether a page holds a recipe, and extract that recipe when you click "Catch
+  this recipe." Recipes live on an unbounded set of sites, so the extension cannot list
+  them in advance. It never modifies the page and never sends anything anywhere.
 - **Storage** — to remember your unit/theme preferences and pass a captured recipe to
   the reader tab, all locally.
 
@@ -58,5 +62,4 @@ If this policy changes, the updated version will be posted at this page with a n
 
 ## Contact
 
-Questions about this policy? Contact: **[your-contact-email@example.com]**
-*(replace with the email address you want to publish)*
+Questions about this policy? Contact: **recipecatcher.support@gmail.com**

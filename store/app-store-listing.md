@@ -57,7 +57,7 @@ Extensions, then click the Recipe Catcher button on any recipe page.
 ## URLs
 - Support URL: `https://<your-site-or-github-page>/support` *(required — a simple page or a GitHub repo/issues link works)*
 - Marketing URL (optional): `https://<your-site-or-github-page>`
-- Privacy Policy URL: host `store/privacy-policy.html` and put its public URL here
+- Privacy Policy URL: publish `docs/` (GitHub Pages) and put its public URL here
 
 ## App Privacy (nutrition label)
 - Data collection: **Data Not Collected** (answer "No" to collecting data)

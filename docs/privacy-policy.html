@@ -36,7 +36,7 @@
 <body>
   <div class="wrap">
     <h1>Privacy Policy — Recipe Catcher</h1>
-    <p class="updated">Last updated: August 2, 2026</p>
+    <p class="updated">Last updated: September 11, 2026</p>
 
     <p class="lede">Recipe Catcher is designed to protect your privacy. In short: it
       <strong>collects nothing, sends nothing, and has no accounts, ads, or
@@ -48,10 +48,13 @@
       tracking, and no user accounts.</p>
 
     <h2>How the extension works with page content</h2>
-    <p>When — and only when — you click <strong>Catch this recipe</strong> on a page, the
-      extension reads the content of that single page in order to extract the recipe
-      (ingredients and instructions). This reading and extraction happen entirely on your
-      device. The recipe text is never sent to us or to any third party.</p>
+    <p>Recipe Catcher includes a small helper that loads on the pages you visit. On each
+      page it checks, locally, whether that page's markup contains structured recipe data —
+      that check is what lets it offer the "Catch this recipe?" prompt. When — and only
+      when — you then click <strong>Catch this recipe</strong>, it reads that single page in
+      full to extract the ingredients and instructions.</p>
+    <p>Both the check and the extraction happen entirely on your device. No page content
+      and no recipe text is ever sent to us or to any third party.</p>
 
     <h2>Information stored on your device</h2>
     <p>The extension uses your browser's local extension storage to keep:</p>
@@ -65,11 +68,11 @@
 
     <h2>Permissions and why they are used</h2>
     <ul>
-      <li><strong>Website access + scripting</strong> — Recipe Catcher includes a small
-        helper that loads on the pages you visit so it is ready the instant you click.
-        That helper does nothing on its own: it only reads and extracts a recipe when you
-        click "Catch this recipe," and it never changes the page or sends anything
-        anywhere.</li>
+      <li><strong>Website access + scripting</strong> — so the helper can load on the
+        pages you visit, check locally whether a page holds a recipe, and extract that
+        recipe when you click "Catch this recipe." Recipes live on an unbounded set of
+        sites, so the extension cannot list them in advance. It never modifies the page and
+        never sends anything anywhere.</li>
       <li><strong>Storage</strong> — to remember your unit/theme preferences and pass a
         captured recipe to the reader tab, all locally.</li>
     </ul>
@@ -87,8 +90,7 @@
 
     <h2>Contact</h2>
     <p>Questions about this policy? Contact:
-      <code>[your-contact-email@example.com]</code>
-      <em>(replace with the email address you want to publish)</em></p>
+      <a href="mailto:recipecatcher.support@gmail.com">recipecatcher.support@gmail.com</a></p>
 
     <footer>Recipe Catcher — a local, private recipe reader.</footer>
   </div>
