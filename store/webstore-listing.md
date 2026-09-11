@@ -60,9 +60,12 @@ Both are live, served from `docs/` via GitHub Pages. Source repo: https://github
 
 ### Screenshots
 Use `store/screenshots/chrome/*.png` — **1280×800, 24-bit PNG, no alpha**, which is what
-the Chrome Web Store requires (it rejects PNGs with an alpha channel). These are the
+the Chrome Web Store requires (it rejects PNGs with an alpha channel). 01 and 02 are the
 `screenshots/macos/` designs with the redundant, fully-opaque alpha channel stripped, so
-the pixels are unchanged. AMO accepts the same files. Up to 5; at least 1 required.
+their pixels are unchanged. 03 was rebuilt (the original's headline overflowed behind the
+card and its unit toggle contradicted the amounts shown); its source is
+`store/screenshots/src/screenshot-03.html`, with the re-render command in that file's
+header comment. AMO accepts the same files. Up to 5; at least 1 required.
 
 ### Pricing
 List **free** on both. The Chrome Web Store no longer supports paid extensions or its

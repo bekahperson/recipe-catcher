@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--
+  Source for store/screenshots/chrome/screenshot-03-1280x800.png.
+
+  The original screenshot-03 was produced in an external design tool with no
+  source in the repo, and shipped with its headline overflowing behind the card
+  and an Imperial/Metric toggle that disagreed with the amounts beside it —
+  neither of which could be corrected without redrawing it. Hence this file.
+
+  Colours are sampled from screenshot-01 so the three read as a set; the
+  ingredient amounts are what extension/units.js actually renders in imperial.
+
+  Re-render (writes a 1280x800 24-bit PNG, no alpha, exactly the Chrome Web
+  Store's requirement):
+
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless --disable-gpu --hide-scrollbars --virtual-time-budget=6000 \
+      --window-size=1280,800 \
+      --screenshot=store/screenshots/chrome/screenshot-03-1280x800.png \
+      "file://$PWD/store/screenshots/src/screenshot-03.html"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  /* Palette sampled from the existing screenshots / extension/reader.css */
+  :root{
+    --bg:#ece5db; --card:#ffffff; --fg:#23201d; --muted:#7a746c;
+    --accent:#b4513a; --panel:#faf8f5; --border:#e7e2da; --rule:#efe9e0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{width:1280px;height:800px;overflow:hidden;}
+  body{background:var(--bg);color:var(--fg);
+       font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+       -webkit-font-smoothing:antialiased;}
+  .serif{font-family:"Playfair Display",Georgia,serif;font-weight:700;}
+
+  /* ---- left marketing column ---- */
+  .left{position:absolute;left:64px;top:172px;width:548px;}
+  .left h1{font-size:54px;line-height:1.06;letter-spacing:-.015em;}
+  .sub{margin-top:16px;font-size:19px;color:var(--muted);}
+  ul{margin-top:36px;list-style:none;}
+  li{display:flex;align-items:center;gap:20px;font-size:17px;margin-bottom:34px;}
+  li:last-child{margin-bottom:0;}
+  .dot{width:11px;height:11px;border-radius:50%;background:var(--accent);flex:0 0 11px;}
+
+  /* ---- reader card ---- */
+  .card{position:absolute;left:654px;top:62px;width:536px;height:680px;
+        background:var(--card);border-radius:20px;
+        box-shadow:0 18px 44px rgba(35,32,29,.13);padding:27px;}
+  .chead{display:flex;align-items:center;justify-content:space-between;
+         padding-bottom:20px;border-bottom:1px solid var(--rule);}
+  .brand{font-size:17px;font-weight:600;color:#4a453f;}
+  .toggle{display:flex;background:#f5f1ea;border-radius:999px;padding:4px;}
+  .toggle span{font-size:13px;font-weight:600;padding:7px 15px;border-radius:999px;color:#5c5751;}
+  .toggle .on{background:var(--accent);color:#fff;}
+
+  .rtitle{margin-top:22px;font-size:31px;line-height:1.15;}
+  .meta{margin-top:7px;font-size:15px;color:var(--muted);}
+  .times{display:flex;margin-top:26px;}
+  .times>div{width:107px;}
+  .times .lbl{font-size:11px;font-weight:600;letter-spacing:.09em;color:var(--muted);}
+  .times .val{margin-top:6px;font-size:17px;font-weight:700;}
+  .sechead{margin-top:26px;font-size:13px;font-weight:700;letter-spacing:.09em;color:var(--accent);}
+  .ing{margin-top:14px;list-style:none;}
+  .ing li{font-size:16px;margin-bottom:20px;gap:16px;}
+  .ing .dot{width:7px;height:7px;flex:0 0 7px;}
+
+  .nutri{position:absolute;left:27px;right:27px;bottom:27px;
+         background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px 20px;}
+  .nutri .h{font-size:13px;font-weight:700;letter-spacing:.09em;color:var(--accent);}
+  .cal{display:flex;align-items:baseline;gap:9px;margin-top:6px;}
+  .cal b{font-size:41px;font-weight:700;letter-spacing:-.02em;}
+  .cal span{font-size:13px;color:var(--muted);}
+  .tiles{display:flex;gap:12px;margin-top:14px;}
+  .tile{flex:1;background:#f5f1ea;border:1px solid var(--border);border-radius:10px;
+        padding:11px 0;text-align:center;}
+  .tile b{display:block;font-size:15px;font-weight:700;}
+  .tile span{font-size:12px;color:var(--muted);}
+</style>
+</head>
+<body>
+  <div class="left">
+    <h1 class="serif">Every amount,<br>your way.</h1>
+    <p class="sub">Convert, scale, shop, and print.</p>
+    <ul>
+      <li><i class="dot"></i>Metric or imperial in a click</li>
+      <li><i class="dot"></i>A tickable shopping list</li>
+      <li><i class="dot"></i>Estimated nutrition per serving</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="chead">
+      <div class="brand">Recipe Catcher</div>
+      <div class="toggle"><span class="on">Imperial</span><span>Metric</span></div>
+    </div>
+
+    <div class="rtitle serif">French Macaron Recipe</div>
+    <div class="meta">By John Kanell · Makes 36</div>
+
+    <div class="times">
+      <div><div class="lbl">PREP</div><div class="val">50 min</div></div>
+      <div><div class="lbl">COOK</div><div class="val">20 min</div></div>
+      <div><div class="lbl">TOTAL</div><div class="val">110 min</div></div>
+    </div>
+
+    <div class="sechead">INGREDIENTS</div>
+    <ul class="ing">
+      <li><i class="dot"></i>5.9 oz blanched almond flour</li>
+      <li><i class="dot"></i>4.2 oz powdered sugar</li>
+      <li><i class="dot"></i>3 large egg whites (3.5 oz)</li>
+      <li><i class="dot"></i>3.5 oz granulated sugar</li>
+    </ul>
+
+    <div class="nutri">
+      <div class="h">NUTRITION</div>
+      <div class="cal"><b>110</b><span>cal / serving</span></div>
+      <div class="tiles">
+        <div class="tile"><b>2 g</b><span>Protein</span></div>
+        <div class="tile"><b>6 g</b><span>Fat</span></div>
+        <div class="tile"><b>12 g</b><span>Carbs</span></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
