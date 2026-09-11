@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c85e45"/>
+      <stop offset="1" stop-color="#a8442f"/>
+    </linearGradient>
+  </defs>
+  <!-- Full-bleed opaque background (no rounded corners; iOS applies its own mask). -->
+  <rect x="0" y="0" width="1024" height="1024" fill="url(#bg)"/>
+  <!-- recipe card -->
+  <rect x="264" y="192" width="496" height="640" rx="56" fill="#faf5ee"/>
+  <!-- title bar -->
+  <rect x="336" y="280" width="240" height="48" rx="24" fill="#c85e45"/>
+  <!-- ingredient/instruction lines -->
+  <g fill="#d8cfc2">
+    <rect x="336" y="392" width="352" height="32" rx="16"/>
+    <rect x="336" y="464" width="300" height="32" rx="16"/>
+    <rect x="336" y="536" width="352" height="32" rx="16"/>
+    <rect x="336" y="608" width="264" height="32" rx="16"/>
+    <rect x="336" y="680" width="320" height="32" rx="16"/>
+  </g>
+  <!-- fork overlay, "catching" the recipe -->
+  <g stroke="#2c2c2e" stroke-width="28" stroke-linecap="round" fill="none" transform="rotate(18 672 600)">
+    <line x1="672" y1="500" x2="672" y2="744"/>
+    <line x1="632" y1="500" x2="632" y2="584"/>
+    <line x1="712" y1="500" x2="712" y2="584"/>
+    <path d="M632 584 h80"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+# Generated Xcode project (regenerate with scripts/build-xcode.sh)
+/Recipe Catcher/
+
+# macOS
+.DS_Store
+
+# Xcode / build output
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# Node (only if you install it for `node --test`)
+node_modules/
+
+# Local tester build output
+/dist/

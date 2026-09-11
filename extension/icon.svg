@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c85e45"/>
+      <stop offset="1" stop-color="#a8442f"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#bg)"/>
+  <!-- recipe card -->
+  <rect x="132" y="96" width="248" height="320" rx="28" fill="#faf5ee"/>
+  <!-- title bar -->
+  <rect x="168" y="140" width="120" height="24" rx="12" fill="#c85e45"/>
+  <!-- ingredient/instruction lines -->
+  <g fill="#d8cfc2">
+    <rect x="168" y="196" width="176" height="16" rx="8"/>
+    <rect x="168" y="232" width="150" height="16" rx="8"/>
+    <rect x="168" y="268" width="176" height="16" rx="8"/>
+    <rect x="168" y="304" width="132" height="16" rx="8"/>
+    <rect x="168" y="340" width="160" height="16" rx="8"/>
+  </g>
+  <!-- fork overlay, "catching" the recipe -->
+  <g stroke="#2c2c2e" stroke-width="14" stroke-linecap="round" fill="none" transform="rotate(18 336 300)">
+    <line x1="336" y1="250" x2="336" y2="372"/>
+    <line x1="316" y1="250" x2="316" y2="292"/>
+    <line x1="356" y1="250" x2="356" y2="292"/>
+    <path d="M316 292 h40" />
+  </g>
+</svg>

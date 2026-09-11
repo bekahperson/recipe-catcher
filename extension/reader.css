@@ -1,0 +1,304 @@
+/* Light is the default. Dark applies when the browser prefers dark (Auto) OR
+   when the user forces it via [data-theme="dark"]. Forcing [data-theme="light"]
+   opts out of the media query so the page stays light even on a dark browser. */
+:root {
+  --bg: #faf8f5;
+  --card: #ffffff;
+  --fg: #23201d;
+  --muted: #7a746c;
+  --accent: #b4513a;
+  --accent-fg: #ffffff;
+  --border: #e7e2da;
+  --rule: #efe9e0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #191715;
+    --card: #221f1c;
+    --fg: #f0ece5;
+    --muted: #a49d93;
+    --accent: #e0785f;
+    --accent-fg: #191715;
+    --border: #35312c;
+    --rule: #2e2a25;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #191715;
+  --card: #221f1c;
+  --fg: #f0ece5;
+  --muted: #a49d93;
+  --accent: #e0785f;
+  --accent-fg: #191715;
+  --border: #35312c;
+  --rule: #2e2a25;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 17px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- toolbar (hidden when printing) ---- */
+.toolbar {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+}
+.toolbar-inner {
+  max-width: 740px; margin: 0 auto; padding: 10px 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  flex-wrap: wrap;
+}
+.tb-brand {
+  display: flex; align-items: center; gap: 8px;
+  font: 600 14px/1 -apple-system, system-ui, sans-serif; color: var(--muted);
+}
+.tb-brand img { border-radius: 5px; }
+.tb-controls {
+  display: flex; align-items: center; gap: 10px;
+  flex-wrap: wrap; justify-content: flex-end;
+}
+/* Keep controls from being squeezed (which clipped "Metric" on narrow phones). */
+.segmented, .tb-btn { flex: 0 0 auto; }
+.segmented {
+  display: inline-flex; border: 1px solid var(--border); border-radius: 9px;
+  overflow: hidden; background: var(--bg);
+}
+.segmented button {
+  border: 0; background: transparent; color: var(--muted); white-space: nowrap;
+  padding: 7px 14px; font: 600 13px -apple-system, system-ui, sans-serif; cursor: pointer;
+}
+.segmented button.active { background: var(--accent); color: var(--accent-fg); }
+.tb-btn {
+  border: 1px solid var(--border); background: var(--bg); color: var(--fg);
+  padding: 7px 14px; border-radius: 9px; cursor: pointer;
+  font: 600 13px -apple-system, system-ui, sans-serif;
+}
+.tb-btn:active { transform: translateY(1px); }
+.theme-btn { display: inline-flex; align-items: center; gap: 6px; }
+.theme-btn .theme-ico { font-size: 13px; line-height: 1; }
+
+/* ---- batch scaler ---- */
+.scaler-card { padding: 14px 18px; }
+.scaler { display: flex; align-items: center; justify-content: space-between; }
+.scaler-label {
+  font: 700 13px -apple-system, system-ui, sans-serif;
+  text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+}
+.stepper {
+  display: inline-flex; align-items: center;
+  border: 1px solid var(--border); border-radius: 9px; overflow: hidden;
+}
+.stepper .step {
+  border: 0; background: var(--bg); color: var(--fg);
+  width: 34px; height: 32px; font-size: 19px; line-height: 1; cursor: pointer;
+}
+.stepper .step:disabled { opacity: .35; cursor: default; }
+.stepper .scale-val {
+  min-width: 46px; text-align: center; padding: 0 6px;
+  font: 600 15px -apple-system, system-ui, sans-serif; color: var(--fg);
+}
+.serv-input {
+  width: 52px; height: 32px; text-align: center; padding: 0;
+  border: 0; border-left: 1px solid var(--border); border-right: 1px solid var(--border);
+  background: var(--bg); color: var(--fg);
+  font: 600 15px -apple-system, system-ui, sans-serif;
+  -moz-appearance: textfield;
+}
+.serv-input:focus { outline: 2px solid var(--accent); outline-offset: -2px; }
+.serv-input::-webkit-outer-spin-button,
+.serv-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.scaler-sub { margin-top: 9px; color: var(--muted); font: 12.5px -apple-system, system-ui, sans-serif; }
+
+/* small action button in a card header (Copy) */
+.mini-btn {
+  margin-left: auto; border: 1px solid var(--border); background: var(--bg); color: var(--muted);
+  font: 600 11.5px -apple-system, system-ui, sans-serif; letter-spacing: 0; text-transform: none;
+  padding: 3px 10px; border-radius: 7px; cursor: pointer;
+}
+.mini-btn:active { transform: translateY(1px); }
+.mini-btn.done { color: var(--accent-fg); background: var(--accent); border-color: var(--accent); }
+
+/* ---- two-column layout ---- */
+.reader-layout {
+  max-width: 1060px; margin: 0 auto; padding: 32px 24px 64px;
+  display: flex; gap: 44px; align-items: flex-start;
+}
+.content { flex: 1 1 auto; min-width: 0; max-width: 680px; }
+.sidebar { flex: 0 0 300px; position: sticky; top: 74px; }
+.sidebar[hidden] { display: none; }
+@media (max-width: 900px) {
+  .reader-layout { display: block; }
+  .sidebar { position: static; width: auto; margin-top: 28px; }
+}
+
+/* ---- sidebar cards ---- */
+.card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+  padding: 18px 18px 16px; margin-bottom: 20px;
+}
+.card-title {
+  font: 700 13px -apple-system, system-ui, sans-serif;
+  text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+  margin: 0 0 12px; display: flex; align-items: center; gap: 8px;
+}
+.card-title .tag {
+  text-transform: none; letter-spacing: 0; font-size: 10.5px; font-weight: 600;
+  color: var(--muted); background: var(--bg); border: 1px solid var(--border);
+  border-radius: 999px; padding: 2px 8px;
+}
+
+/* ---- shopping list ---- */
+ul.shopping { list-style: none; margin: 0; padding: 0; }
+.shop-item {
+  display: flex; align-items: flex-start; gap: 11px;
+  padding: 7px 0; border-bottom: 1px solid var(--rule);
+  font: 15px/1.4 -apple-system, system-ui, sans-serif; cursor: pointer;
+}
+.shop-item:last-child { border-bottom: 0; }
+.shop-item .check {
+  flex: 0 0 auto; margin-top: 1px; padding: 0; border: 0; background: none; cursor: pointer;
+}
+.shop-item .circle {
+  display: block; width: 19px; height: 19px; border-radius: 50%;
+  border: 2px solid var(--muted); background: transparent; position: relative;
+}
+.shop-item.checked .circle { background: var(--accent); border-color: var(--accent); }
+.shop-item.checked .circle::after {
+  content: ""; position: absolute; left: 5px; top: 2px;
+  width: 5px; height: 9px; border: solid var(--accent-fg);
+  border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
+.shop-item .shop-text { color: var(--fg); }
+.shop-item.checked .shop-text { color: var(--muted); text-decoration: line-through; }
+
+/* ---- nutrition ---- */
+.cals { display: flex; align-items: baseline; gap: 8px; margin: 2px 0 14px; }
+.cals-num { font: 700 34px -apple-system, system-ui, sans-serif; color: var(--fg); }
+.cals-unit { color: var(--muted); font: 13px -apple-system, system-ui, sans-serif; }
+.macros { display: flex; gap: 8px; }
+.macro {
+  flex: 1; text-align: center; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 10px; padding: 9px 4px;
+}
+.macro .m-v { display: block; font: 700 16px -apple-system, system-ui, sans-serif; color: var(--fg); }
+.macro .m-k { display: block; font: 11px -apple-system, system-ui, sans-serif; color: var(--muted); margin-top: 2px; }
+.batch {
+  margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--rule);
+  color: var(--muted); font: 13px -apple-system, system-ui, sans-serif;
+}
+.batch strong { color: var(--fg); }
+.nutri-note { color: var(--muted); font: 11.5px/1.4 -apple-system, system-ui, sans-serif; margin: 12px 0 0; }
+
+/* "check amount" flag for ambiguously-written quantities */
+.flag {
+  position: relative;
+  display: inline-block; margin-left: 6px; white-space: nowrap; cursor: help;
+  font: 600 11px -apple-system, system-ui, sans-serif;
+  color: #8a5a00; background: #fbf0d6; border: 1px solid #ecd9a8;
+  border-radius: 6px; padding: 0 7px; vertical-align: 1px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .flag { color: #f0c674; background: #3a3220; border-color: #5a4d2a; }
+}
+:root[data-theme="dark"] .flag { color: #f0c674; background: #3a3220; border-color: #5a4d2a; }
+
+/* hover/focus tooltip bubble (anchored to the flag's right so it stays on-screen) */
+.flag::after {
+  content: attr(data-tip);
+  position: absolute; bottom: calc(100% + 8px); right: 0;
+  width: max-content; max-width: 220px; white-space: normal; text-align: left;
+  background: var(--fg); color: var(--bg);
+  font: 500 12px/1.4 -apple-system, system-ui, sans-serif;
+  padding: 7px 10px; border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+  opacity: 0; visibility: hidden; transform: translateY(4px);
+  transition: opacity .12s ease, transform .12s ease;
+  z-index: 30; pointer-events: none;
+}
+.flag::before {
+  content: ""; position: absolute; bottom: calc(100% + 3px); right: 13px;
+  border: 5px solid transparent; border-top-color: var(--fg);
+  opacity: 0; visibility: hidden; transition: opacity .12s ease; z-index: 31;
+}
+.flag:hover::after, .flag:focus::after,
+.flag:hover::before, .flag:focus::before { opacity: 1; visibility: visible; }
+.flag:hover::after, .flag:focus::after { transform: translateY(0); }
+
+/* ---- recipe body ---- */
+.loading, .error-box { color: var(--muted); text-align: center; padding: 48px 0; }
+.error-box h1 { color: var(--fg); }
+h1.recipe-title {
+  font: 700 32px/1.2 -apple-system, Georgia, serif; margin: 0 0 6px;
+}
+.meta { color: var(--muted); font-size: 14.5px; margin-bottom: 4px; }
+.meta a { color: var(--accent); }
+.times {
+  display: flex; flex-wrap: wrap; gap: 18px; margin: 18px 0 8px;
+  padding: 12px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  font-family: -apple-system, system-ui, sans-serif;
+}
+.times div { font-size: 14px; }
+.times .k { color: var(--muted); display: block; font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; }
+.times .v { font-weight: 600; font-size: 15px; }
+
+h2.section {
+  font: 700 13px -apple-system, system-ui, sans-serif;
+  text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+  margin: 34px 0 12px;
+}
+ul.ingredients { list-style: none; margin: 0; padding: 0; }
+ul.ingredients li {
+  padding: 8px 0 8px 26px; position: relative; border-bottom: 1px solid var(--rule);
+}
+ul.ingredients li::before {
+  content: ""; position: absolute; left: 4px; top: 15px;
+  width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+}
+ol.steps { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+ol.steps li {
+  position: relative; padding: 4px 0 18px 44px; margin: 0; counter-increment: step;
+}
+ol.steps li::before {
+  content: counter(step); position: absolute; left: 0; top: 2px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent); color: var(--accent-fg);
+  font: 600 14px -apple-system, system-ui, sans-serif;
+  display: flex; align-items: center; justify-content: center;
+}
+.footer {
+  max-width: 1060px; margin: 0 auto; padding: 0 24px 40px;
+  color: var(--muted); font-size: 12.5px; font-family: -apple-system, system-ui, sans-serif;
+}
+
+/* ---- print / Save-as-PDF ---- */
+@media print {
+  .toolbar { display: none !important; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  /* Sidebar becomes a right-hand column that shares the printed page. */
+  .reader-layout { display: flex; gap: 28px; max-width: none; padding: 0; }
+  .content { max-width: none; }
+  .sidebar { position: static; flex: 0 0 34%; }
+  .card { border: 1px solid #bbb; break-inside: avoid; }
+  .card-title { color: #000; }
+  h2.section { color: #000; }
+  ol.steps li::before { background: #000; color: #fff; }
+  ol.steps li, .shop-item { break-inside: avoid; }
+  /* Print open circles to tick by hand; keep filled ones filled. */
+  .shop-item .circle { border-color: #000; }
+  .shop-item.checked .circle { background: #000; border-color: #000; }
+  .shop-item.checked .circle::after { border-color: #fff; }
+  .macro { border-color: #999; }
+  /* Keep the chosen servings/batch label but drop interactive controls. */
+  .stepper { border: 0; }
+  .stepper .step, .mini-btn { display: none; }
+  .serv-input { border: 0; background: transparent; color: #000; text-align: left; width: auto; }
+  .scaler-label, .scale-val, .batch strong { color: #000; }
+  .flag { display: none !important; }
+  .footer { color: #444; }
+  a { color: #000; text-decoration: none; }
+}

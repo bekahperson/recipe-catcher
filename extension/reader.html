@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recipe Catcher</title>
+  <link rel="stylesheet" href="reader.css" />
+</head>
+<body>
+  <div class="toolbar" id="toolbar">
+    <div class="toolbar-inner">
+      <div class="tb-brand">
+        <img src="icons/icon-48.png" alt="" width="22" height="22" />
+        Recipe Catcher
+      </div>
+      <div class="tb-controls">
+        <div class="segmented" id="unit-toggle" role="group" aria-label="Units">
+          <button data-system="imperial" type="button">Imperial</button>
+          <button data-system="metric" type="button">Metric</button>
+        </div>
+        <button id="theme" class="tb-btn theme-btn" type="button" title="Theme">
+          <span class="theme-ico" aria-hidden="true">◐</span><span class="theme-label">Auto</span>
+        </button>
+        <button id="print" class="tb-btn" type="button">Print / Save PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="reader-layout">
+    <main id="content" class="content">
+      <p class="loading">Loading recipe…</p>
+    </main>
+    <aside id="sidebar" class="sidebar" hidden>
+      <section id="scaler" class="card scaler-card"></section>
+      <section id="shopping" class="card"></section>
+      <section id="nutrition" class="card"></section>
+    </aside>
+  </div>
+
+  <footer class="footer" id="footer"></footer>
+
+  <script src="units.js"></script>
+  <script src="nutrition.js"></script>
+  <script src="reader.js"></script>
+</body>
+</html>
