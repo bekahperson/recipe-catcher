@@ -118,3 +118,26 @@ test("normalizeRecipe: recipeInstructions as single string", () => {
   );
   assert.deepStrictEqual(r.steps, ["Do this. Then that."]);
 });
+
+// Regression: clean() used to match "((" and "))" independently, which ate the
+// outer paren of a legitimately nested note. WordPress Recipe Maker (RecipeTin
+// Eats et al) emits "flour (, bread or plain/all purpose (Note 1))".
+test("clean: keeps nested note parentheses balanced", () => {
+  const out = P.clean("3 cups (450g) flour (, bread or plain/all purpose (Note 1))");
+  assert.strictEqual(out, "3 cups (450g) flour (bread or plain/all purpose (Note 1))");
+  let bal = 0;
+  for (const ch of out) { if (ch === "(") bal++; else if (ch === ")") bal--; }
+  assert.strictEqual(bal, 0, "parentheses must balance");
+});
+
+test("clean: still collapses genuinely doubled parentheses", () => {
+  assert.strictEqual(
+    P.clean("warm water ((about 100 degrees F))"),
+    "warm water (about 100 degrees F)"
+  );
+});
+
+test("clean: drops the stray leading comma in plugin-wrapped notes", () => {
+  assert.strictEqual(P.clean("1 1/2 tbsp flour (, for dusting)"),
+    "1 1/2 tbsp flour (for dusting)");
+});

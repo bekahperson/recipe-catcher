@@ -36,9 +36,18 @@ const RecipeParser = (function () {
   function clean(str) {
     // Collapse doubled parentheses that recipe plugins emit, e.g.
     // "warm water ((about 100 degrees F))" -> "warm water (about 100 degrees F)".
+    //
+    // Only collapse when BOTH parens wrap the same content. Matching "((" and
+    // "))" independently also ate the outer paren of a legitimately nested
+    // note: WordPress Recipe Maker (RecipeTin Eats et al) emits
+    //   "flour (, bread or plain/all purpose (Note 1))"
+    // which became "...(Note 1)" — one "(" too many, so the rest of the line
+    // read as if it were still inside the note.
     return stripHtml(str)
-      .replace(/\(\s*\(/g, "(")
-      .replace(/\)\s*\)/g, ")")
+      .replace(/\(\s*\(([^()]*)\)\s*\)/g, "($1)")
+      // Those same plugins wrap a note that already begins with its separator,
+      // giving "flour (, bread or …)". Drop the stray leading comma.
+      .replace(/\(\s*,\s*/g, "(")
       .replace(/\s{2,}/g, " ")
       .trim();
   }
@@ -334,6 +343,7 @@ const RecipeParser = (function () {
     normDuration,
     normNutrition,
     stripHtml,
+    clean,
     // DOM
     hasStructuredRecipe,
     extractFromDocument,

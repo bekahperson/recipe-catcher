@@ -17,6 +17,41 @@ function near(a, b, name) { ok(Math.abs(a - b) < 0.5, name + "  (got " + a + ", 
 function deep(a, b, name) { ok(JSON.stringify(a) === JSON.stringify(b), name + "  (got " + JSON.stringify(a) + ")"); }
 function match(str, re, name) { ok(re.test(str), name + "  (got " + JSON.stringify(str) + ")"); }
 
+// ---- units: duplicate amount stated in both systems ----
+// "1 1/2 cups (375 ml) water" rendered the amount twice: "1 1/2 cups (1 5/8
+// cups)" in imperial, and two disagreeing values "350 ml (375 ml)" in metric.
+(function () {
+  var DUP = "1 1/2 cups (375 ml) very warm tap water (Note 4)";
+  eq(U.formatIngredient(U.parseIngredient(DUP), "imperial", 1),
+     "1 1/2 cups very warm tap water (Note 4)", "drops restated amount (imperial)");
+  eq(U.formatIngredient(U.parseIngredient(DUP), "metric", 1),
+     "375 ml very warm tap water (Note 4)", "prefers author's exact metric number");
+  eq(U.formatIngredient(U.parseIngredient(DUP), "metric", 2),
+     "750 ml very warm tap water (Note 4)", "author's number scales");
+  var other = "1 1/2 cups water (plus 2 tbsp for thinning)";
+  eq(U.formatIngredient(U.parseIngredient(other), "imperial", 1), other,
+     "keeps a note amount that is not a restatement");
+  match(U.formatIngredient(U.parseIngredient(other), "metric", 1), /30 ml for thinning/,
+     "still converts a genuinely different note amount");
+})();
+
+// ---- parser: clean() paren handling ----
+// Regression: "((" / "))" were matched independently, eating the outer paren of
+// a nested note ("flour (, bread or plain/all purpose (Note 1))").
+(function () {
+  var out = P.clean("3 cups (450g) flour (, bread or plain/all purpose (Note 1))");
+  eq(out, "3 cups (450g) flour (bread or plain/all purpose (Note 1))", "clean keeps nested note parens");
+  var bal = 0;
+  for (var i = 0; i < out.length; i++) {
+    if (out[i] === "(") bal++; else if (out[i] === ")") bal--;
+  }
+  eq(bal, 0, "clean leaves parentheses balanced");
+  eq(P.clean("warm water ((about 100 degrees F))"), "warm water (about 100 degrees F)",
+     "clean still collapses doubled parens");
+  eq(P.clean("1 1/2 tbsp flour (, for dusting)"), "1 1/2 tbsp flour (for dusting)",
+     "clean drops stray leading comma in notes");
+})();
+
 // ---- units ----
 eq(U.parseQuantity("1 1/2").value, 1.5, "parseQuantity mixed");
 eq(U.parseQuantity("½").value, 0.5, "parseQuantity unicode");

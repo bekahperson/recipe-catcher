@@ -283,6 +283,58 @@ const Units = (function () {
     return { grams: q.value * def.toBase, index: m.index, len: m[0].length };
   }
 
+  // Find a measure of `dim` stated in a note — the "(375 ml)" in
+  // "1 1/2 cups (375 ml) warm water". Returns {base, system, index, len} with
+  // `base` in that dimension's canonical unit, or null.
+  const MEASURE_OF_DIM_RE = {};
+  function extractMeasure(text, dim) {
+    if (!text || !dim) return null;
+    if (!MEASURE_OF_DIM_RE[dim]) {
+      const u = UNIT_ALIASES
+        .filter((a) => UNITS[a] && UNITS[a].dim === dim && a !== "#")
+        .map((a) => a.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+        .join("|");
+      MEASURE_OF_DIM_RE[dim] = new RegExp("(" + QTY_RANGE + ")\\s*(" + u + ")\\b", "i");
+    }
+    const m = String(text).match(MEASURE_OF_DIM_RE[dim]);
+    if (!m) return null;
+    const alias = m[2].toLowerCase();
+    const q = parseQuantity(m[1]);
+    const def = UNITS[alias];
+    if (!q || !def || def.dim !== dim) return null;
+    return {
+      base: q.value * def.toBase,
+      system: METRIC_ALIASES.has(alias) ? "metric" : "imperial",
+      index: m.index,
+      len: m[0].length,
+    };
+  }
+
+  // Recipes routinely state one amount twice, in both systems —
+  // "1 1/2 cups (375 ml) water". Treat the note's measure as a restatement of
+  // the leading amount when it lands within 20% (authors round: 1 cup -> 250 ml
+  // is already 5.7% off). Anything further apart is a genuinely different
+  // quantity ("plus 2 tbsp for thinning") and must be left alone.
+  function isRestatement(a, b) {
+    if (!a || !b) return false;
+    const hi = Math.max(a, b), lo = Math.min(a, b);
+    return hi / lo <= 1.2;
+  }
+
+  // Render an amount the author stated themselves. Keeps their exact figure —
+  // 375 ml stays 375 ml rather than the 380 ml renderMagnitude's nice-rounding
+  // would produce — while matching its unit choice and labels. (The metric
+  // dry-goods path makes the same promise for weights.)
+  function renderAuthorMagnitude(dim, base, system) {
+    if (system === "metric" && (dim === "volume" || dim === "weight")) {
+      if (base >= 1000) {
+        return `${fmtNum(Math.round(base / 10) / 100)} ${dim === "volume" ? "l" : "kg"}`;
+      }
+      return `${Math.round(base)} ${dim === "volume" ? "ml" : "g"}`;
+    }
+    return renderMagnitude(dim, base, system);
+  }
+
   // Remove a span from note text and tidy the leftover parentheses/commas.
   function tidyNote(s) {
     return String(s)
@@ -307,7 +359,24 @@ const Units = (function () {
     // This ingredient's own food (pins the units of any amounts in its notes,
     // e.g. yeast's "(or 2.25 teaspoons)" -> grams because yeast is a solid).
     const food0 = foodResolver && parsed.raw ? foodResolver(parsed.raw) : null;
-    const rest = parsed.rest ? convertText(parsed.rest, system, scale, foodResolver, food0) : "";
+
+    // If the note simply restates the leading amount in the other system
+    // ("1 1/2 cups (375 ml)"), drop that duplicate before converting the note —
+    // otherwise it gets converted too and the line shows the same quantity
+    // twice ("1 1/2 cups (1 5/8 cups)", or in metric two disagreeing values,
+    // "350 ml (375 ml)"). When the duplicate is already in the system being
+    // rendered, prefer it: it is the author's own number for these units.
+    let rawRest = parsed.rest || "";
+    let authorBase = null;
+    if (parsed.hasMeasure && parsed.base != null && parsed.dim) {
+      const dup = extractMeasure(rawRest, parsed.dim);
+      if (dup && isRestatement(dup.base, parsed.base)) {
+        rawRest = tidyNote(rawRest.slice(0, dup.index) + rawRest.slice(dup.index + dup.len));
+        if (dup.system === system) authorBase = dup.base;
+      }
+    }
+    const droppedDup = rawRest !== (parsed.rest || "");
+    const rest = rawRest ? convertText(rawRest, system, scale, foodResolver, food0) : "";
 
     if (!parsed.hasMeasure) {
       // No leading count: still convert any amounts embedded in the text.
@@ -317,6 +386,13 @@ const Units = (function () {
       let qty = formatCount(parsed.value * scale);
       if (parsed.high != null) qty += `–${formatCount(parsed.high * scale)}`;
       return rest ? `${qty} ${rest}` : qty;
+    }
+
+    // The recipe already stated this amount in the system we're rendering, so
+    // show the author's figure rather than our own conversion of the other one.
+    if (authorBase != null) {
+      const q = renderAuthorMagnitude(parsed.dim, authorBase * scale, system);
+      return rest ? `${q} ${rest}` : q;
     }
 
     // Metric dry goods measured by volume are weighed in grams (flour, sugar…).
@@ -349,7 +425,10 @@ const Units = (function () {
     // still convert amounts in the notes. (Suspect amounts are re-rendered from
     // our repaired interpretation rather than the malformed original.)
     if (parsed.system === system && scale === 1 && !parsed.suspect) {
-      return rest ? `${leadingText(parsed)} ${rest}` : parsed.raw;
+      if (rest) return `${leadingText(parsed)} ${rest}`;
+      // parsed.raw still carries the duplicate we just removed, so fall back to
+      // the leading amount alone rather than reinstating it.
+      return droppedDup ? leadingText(parsed) : parsed.raw;
     }
 
     let qty = renderMagnitude(parsed.dim, parsed.base * scale, system);

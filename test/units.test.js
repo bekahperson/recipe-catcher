@@ -180,3 +180,43 @@ test("detectSystem: metric vs imperial majority", () => {
     "imperial"
   );
 });
+
+// Recipes often state one amount twice — "1 1/2 cups (375 ml) water". Rendering
+// both produced "1 1/2 cups (1 5/8 cups)" in imperial and two disagreeing
+// values, "350 ml (375 ml)", in metric. (RecipeTin Eats, and WPRM generally.)
+const DUP = "1 1/2 cups (375 ml) very warm tap water (Note 4)";
+
+test("formatIngredient: drops a restated amount in the other system", () => {
+  assert.strictEqual(
+    Units.formatIngredient(Units.parseIngredient(DUP), "imperial", 1),
+    "1 1/2 cups very warm tap water (Note 4)"
+  );
+});
+
+test("formatIngredient: prefers the author's own number for the shown system", () => {
+  // 1 1/2 cups is 354.9 ml, but the author wrote 375 ml — show theirs, exactly
+  // (not nice-rounded to 380).
+  assert.strictEqual(
+    Units.formatIngredient(Units.parseIngredient(DUP), "metric", 1),
+    "375 ml very warm tap water (Note 4)"
+  );
+});
+
+test("formatIngredient: the author's number still scales", () => {
+  assert.strictEqual(
+    Units.formatIngredient(Units.parseIngredient(DUP), "metric", 2),
+    "750 ml very warm tap water (Note 4)"
+  );
+});
+
+test("formatIngredient: keeps a note amount that is NOT a restatement", () => {
+  const line = "1 1/2 cups water (plus 2 tbsp for thinning)";
+  assert.strictEqual(
+    Units.formatIngredient(Units.parseIngredient(line), "imperial", 1),
+    "1 1/2 cups water (plus 2 tbsp for thinning)"
+  );
+  assert.match(
+    Units.formatIngredient(Units.parseIngredient(line), "metric", 1),
+    /30 ml for thinning/
+  );
+});
