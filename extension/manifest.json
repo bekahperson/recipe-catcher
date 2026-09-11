@@ -28,6 +28,6 @@
       "run_at": "document_idle"
     }
   ],
-  "permissions": ["scripting", "storage"],
+  "permissions": ["activeTab", "scripting", "storage"],
   "host_permissions": ["<all_urls>"]
 }

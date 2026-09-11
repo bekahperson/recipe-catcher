@@ -1,6 +1,7 @@
 # Recipe Catcher
 
-A Safari extension (macOS + iOS) that grabs **just the ingredients and instructions**
+A browser extension for **Chrome, Firefox, and Safari** (macOS + iOS) that grabs
+**just the ingredients and instructions**
 from a recipe web page — skipping the pop-up ads, cookie walls, and "submit this form
 to view the recipe" gates — and opens them in a clean, text-only tab you can **read,
 print, or save to PDF**, with a one-tap **metric ⇄ imperial** toggle.
@@ -40,16 +41,18 @@ microdata and then a heuristic scan for "Ingredients" / "Instructions" sections.
 Everything runs locally. No network calls, no tracking, no accounts.
 
 **Privacy by design.** Recipe Catcher makes no network requests, has no analytics, and
-collects nothing. A small content script loads on the pages you visit so it's ready the
-instant you click, but it does nothing on its own — it only reads and extracts a recipe
-when you press **Catch this recipe**, and it never modifies pages or transmits anything.
-Your preferences and the captured recipe live in local extension storage on your device.
+collects nothing. A small content script loads on the pages you visit; on each page it
+checks locally whether the markup contains structured recipe data, and if it does, offers
+the "Catch this recipe?" prompt. It extracts the full recipe only when you press **Catch
+this recipe**, and it never modifies pages or transmits anything. Your preferences and the
+captured recipe live in local extension storage on your device.
 
 ## Project layout
 
 ```
-extension/            The Safari Web Extension source (the real code)
-  manifest.json         MV3 manifest
+extension/            The web extension source (the real code) — shared by all browsers
+  manifest.json         MV3 manifest (Chrome- and Safari-ready as written;
+                        the Firefox variant is derived from it at build time)
   parser.js             Recipe extraction (JSON-LD → microdata → heuristics)
   units.js              Metric/imperial parsing + conversion engine
   nutrition.js          Per-serving nutrition (site data, or ingredient estimate)
@@ -60,11 +63,16 @@ extension/            The Safari Web Extension source (the real code)
   icons/                App/extension icons (generated from icon.svg)
 scripts/
   run-tests.sh          Run the logic tests (node, or macOS jsc fallback)
+  build-webext.sh       Build dist/chrome + dist/firefox packages (+ zips)
+  smoke-firefox.py      Browser-level end-to-end test in a real Firefox
   build-xcode.sh        Wrap extension/ into an Xcode project (macOS + iOS)
 test/                   Unit tests for the parser and unit engine
-store/                  App Store submission assets (see below)
+  fixtures/recipe.html    Stable local recipe page used by the Firefox smoke test
+store/                  Store submission assets (see below)
   privacy-policy.html     Hostable privacy policy (also .md)
-  app-store-listing.md    Name, subtitle, description, keywords, pricing notes
+  webstore-listing.md     Chrome Web Store + Firefox AMO copy, permission
+                          justifications, reviewer test steps
+  app-store-listing.md    Apple: name, subtitle, description, keywords, pricing
   review-notes.md         Notes + test steps for the App Review team
   appicon/                Opaque 1024 app icon (icon-app.svg → icon-1024.png)
 ```
@@ -78,6 +86,47 @@ Run the logic tests (no browser needed):
 ```
 
 Uses `node --test` if Node is installed, otherwise the macOS-bundled JavaScriptCore.
+
+## Build & load in Chrome / Firefox
+
+One source tree, two packages. `extension/manifest.json` is the single source of truth;
+the Firefox manifest is derived from it at build time (background becomes an event page
+instead of a service worker, plus the required `browser_specific_settings.gecko` id), so
+version and description bumps only ever happen in one file.
+
+```bash
+./scripts/build-webext.sh
+```
+
+That writes `dist/chrome/` + `dist/chrome.zip` and `dist/firefox/` + `dist/firefox.zip`,
+and validates each package first — every file the manifest and HTML reference must exist,
+and every script must parse. (It's the stand-in for `web-ext lint`, which needs Node.)
+
+**Chrome:** `chrome://extensions` → turn on **Developer mode** → **Load unpacked** →
+select `dist/chrome`. Note that Chrome ignores the `--load-extension` command-line flag in
+branded builds, so this has to be done through the UI.
+
+**Firefox:** `about:debugging#/runtime/this-firefox` → **Load Temporary Add-on** → pick
+`dist/firefox/manifest.json`. Temporary add-ons are removed when Firefox restarts.
+
+> **Firefox host permissions — tested, works out of the box.** The worry was that Firefox
+> MV3 treats `host_permissions` as opt-in and would suppress the on-page prompt until the
+> user granted site access. On **Firefox 155.0.1** that does not happen: `<all_urls>` is
+> already granted at install (confirmed by reading `ExtensionPermissions.get()` in the
+> privileged chrome context), and the prompt appears with no manual grant. Users can still
+> revoke site access from the toolbar button, and the toolbar catch keeps working via
+> `activeTab` if they do. Verified against a temporary add-on install; worth re-checking
+> once on the first AMO-signed build.
+
+Run the browser-level smoke test (needs `brew install geckodriver firefox`):
+
+```bash
+./scripts/smoke-firefox.py
+```
+
+It installs `dist/firefox` into a real Firefox, opens `test/fixtures/recipe.html`, and
+asserts the whole path: prompt appears → Catch opens the reader → metric toggle, servings
+scaler, °C annotation, and nutrition all work. Add `--headless` for CI.
 
 ## Build & load in Safari (macOS)
 
@@ -103,6 +152,22 @@ Xcode with an iOS Simulator or your device, set your signing **Team** on both th
 and the extension targets (Signing & Capabilities), and Run. Enable the extension in
 **Settings → Safari → Extensions** on the device. On iOS, "Save to PDF" is done from
 the share sheet in Safari's print preview.
+
+## Publishing to the Chrome Web Store / Firefox AMO
+
+`store/webstore-listing.md` has the ready-to-paste copy, the single-purpose statement,
+a justification for every permission, and reviewer test steps.
+
+- **Chrome Web Store** — one-time **$5** developer registration. Upload `dist/chrome.zip`,
+  reuse `store/screenshots/macos/*.png` (already 1280×800, the size Chrome wants), and
+  supply a public privacy-policy URL. List it **free**: the Chrome Web Store no longer
+  supports paid extensions.
+- **Firefox AMO** — free. Upload `dist/firefox.zip` and it gets signed automatically.
+  Reviewers may ask for source; ours is unminified plain JS. You can also self-distribute
+  the signed XPI.
+
+Both stores require a hosted privacy policy — publish `store/privacy-policy.html`
+(e.g. GitHub Pages) and fill in its contact-email placeholder first.
 
 ## Publishing to the App Store (Safari)
 
