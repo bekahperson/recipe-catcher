@@ -7,10 +7,9 @@
   Palette and type match store/screenshots/* (page #ece5db, ink #23201d,
   muted #7a746c, accent #b4513a, Playfair Display for the wordmark).
 
-  The mark is extension/icon.svg inlined, NOT extension/icons/*.png: those PNGs
-  were exported onto an opaque white background, so their rounded corners carry
-  white and would show as a white square against this cream page. The SVG has
-  the transparency the PNGs lost. Keep them in sync by hand if the art changes.
+  The mark is extension/icon.svg inlined rather than one of the PNGs, so it
+  rasterises at exactly this size. (Building this tile is what exposed the PNGs
+  being exported onto opaque white — fixed since, in scripts/build-icons.py.)
 
   Re-render:
     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \

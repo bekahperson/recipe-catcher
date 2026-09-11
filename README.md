@@ -60,10 +60,11 @@ extension/            The web extension source (the real code) — shared by all
   background.js         Orchestrates capture → opens the reader tab
   popup.{html,js,css}   Toolbar button UI + default-units setting
   reader.{html,js,css}  The clean, printable recipe tab + unit toggle
-  icons/                App/extension icons (generated from icon.svg)
+  icons/                Extension icons — generated, run scripts/build-icons.py
 scripts/
   run-tests.sh          Run the logic tests (node, or macOS jsc fallback)
   build-webext.sh       Build dist/chrome + dist/firefox packages (+ zips)
+  build-icons.py        Regenerate extension/icons/*.png from icon.svg
   smoke-firefox.py      Browser-level end-to-end test in a real Firefox
   build-xcode.sh        Wrap extension/ into an Xcode project (macOS + iOS)
 test/                   Unit tests for the parser and unit engine
