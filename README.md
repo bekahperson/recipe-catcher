@@ -168,14 +168,15 @@ docs/.nojekyll            Serve the files as-is, skipping Jekyll
 ```
 
 No build step, no external assets — all CSS is inline, so it works on any static host.
-To publish with **GitHub Pages**: push this repo to GitHub (it must be **public** for
-Pages on a free account), then **Settings → Pages → Source: Deploy from a branch →
-`main` / `/docs`**. After a minute the pages are live at:
+**Published live** via GitHub Pages (Settings → Pages → Deploy from a branch →
+`main` / `/docs`):
 
 ```
-https://<user>.github.io/<repo>/                       <- support / homepage URL
-https://<user>.github.io/<repo>/privacy-policy.html    <- privacy policy URL
+https://bekahperson.github.io/recipe-catcher/                     <- support / homepage URL
+https://bekahperson.github.io/recipe-catcher/privacy-policy.html    <- privacy policy URL
 ```
+
+Edit the files in `docs/` and push; Pages rebuilds in about a minute.
 
 Netlify Drop or Cloudflare Pages work too — point either at `docs/`.
 

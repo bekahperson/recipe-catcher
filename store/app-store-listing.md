@@ -55,9 +55,9 @@ Extensions, then click the Recipe Catcher button on any recipe page.
 - Secondary: **Utilities**
 
 ## URLs
-- Support URL: `https://<your-site-or-github-page>/support` *(required — a simple page or a GitHub repo/issues link works)*
-- Marketing URL (optional): `https://<your-site-or-github-page>`
-- Privacy Policy URL: publish `docs/` (GitHub Pages) and put its public URL here
+- Support URL: `https://bekahperson.github.io/recipe-catcher/`
+- Marketing URL (optional): `https://bekahperson.github.io/recipe-catcher/`
+- Privacy Policy URL: `https://bekahperson.github.io/recipe-catcher/privacy-policy.html`
 
 ## App Privacy (nutrition label)
 - Data collection: **Data Not Collected** (answer "No" to collecting data)
