@@ -59,8 +59,10 @@ happens on your device, and nothing is ever uploaded.
 Both are live, served from `docs/` via GitHub Pages. Source repo: https://github.com/bekahperson/recipe-catcher
 
 ### Screenshots
-Reuse `store/screenshots/macos/*.png` — they are already **1280×800**, exactly what the
-Chrome Web Store wants. AMO accepts the same files.
+Use `store/screenshots/chrome/*.png` — **1280×800, 24-bit PNG, no alpha**, which is what
+the Chrome Web Store requires (it rejects PNGs with an alpha channel). These are the
+`screenshots/macos/` designs with the redundant, fully-opaque alpha channel stripped, so
+the pixels are unchanged. AMO accepts the same files. Up to 5; at least 1 required.
 
 ### Pricing
 List **free** on both. The Chrome Web Store no longer supports paid extensions or its
