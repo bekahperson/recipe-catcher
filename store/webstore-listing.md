@@ -148,6 +148,33 @@ self-distribute the signed XPI instead of listing it.
   step for the extension itself, so point them at the uploaded package or this repo.
 - **License:** MIT (see `LICENSE` at the repo root); select "MIT License" in the AMO form.
 
+### AMO Description field
+AMO's Description is **not** capped at 250 — that number is a recommendation, because the
+product page previews the first 250 characters. So this is the full description with a
+self-contained opening paragraph (247 chars) that reads correctly on its own when
+truncated, rather than a shortened description. The Summary field above is separately
+capped at 250 and takes that same opening line.
+
+```
+Grab just the ingredients and instructions from any recipe page — no ads, no pop-ups, no life story. Read them in a clean, printable tab, swap metric and imperial, rescale the servings, and tick off a shopping list. Nothing is tracked or uploaded.
+
+HOW IT WORKS
+Nearly every recipe site publishes its recipe as machine-readable structured data. Recipe Catcher reads that — not the rendered, ad-covered page — which is why overlays, cookie walls and "subscribe to view" interstitials don't get in the way. If a page has no structured data, it falls back to a heuristic scan.
+
+FEATURES
+• Clean, readable recipe — no ads, no clutter, no pop-ups
+• One click between metric and imperial — dry goods in grams, liquids in ml
+• Oven temperatures annotated both ways, e.g. 450 degrees F (232°C)
+• Adjust the servings and every quantity rescales
+• A shopping list with tickable checkboxes, and a Copy button for pasting into notes or a message
+• Estimated nutrition per serving (calories plus protein/fat/carbs)
+• Print or save a tidy PDF
+• Automatic light and dark mode
+
+PRIVACY
+Recipe Catcher has no accounts, no servers and no analytics, and makes no network requests of its own. A small helper loads on the pages you visit and checks locally whether a page contains recipe data, so it can offer to catch it; the full recipe is extracted only when you click. Everything stays on your device.
+```
+
 ### Note on Firefox host permissions — resolved
 The concern was that Firefox MV3's opt-in `host_permissions` would suppress the on-page
 prompt until the user granted site access. **Tested on Firefox 155.0.1: it does not.**
