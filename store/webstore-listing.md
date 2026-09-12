@@ -127,6 +127,11 @@ Free to publish. Upload `dist/firefox.zip`; AMO signs it automatically. You can 
 self-distribute the signed XPI instead of listing it.
 
 - **Add-on ID:** `recipe-catcher@rodgers` (set in the generated Firefox manifest)
+- **Data collection:** the manifest declares
+  `browser_specific_settings.gecko.data_collection_permissions.required: ["none"]`.
+  AMO rejects an upload that omits this key ("The data_collection_permissions property is
+  missing"). `"none"` is the declaration for collecting nothing and must be the only entry.
+  Answer the dashboard's data-collection question the same way.
 - **Minimum Firefox version:** 121.0 (MV3 event-page background support)
 - **Source code:** reviewers may request it. Ours is plain, unminified JS with no build
   step for the extension itself, so point them at the uploaded package or this repo.

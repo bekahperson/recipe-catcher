@@ -46,10 +46,17 @@ copy_src "$OUT/firefox"
 #  - background runs as an EVENT PAGE (scripts), not a service worker
 #  - an explicit gecko add-on id is required to sign/submit on AMO
 #  - 121.0 is the floor for MV3 event-page background support
+#  - AMO rejects an upload without data_collection_permissions. Recipe Catcher
+#    collects nothing, and "none" is the declaration for that — it must be the
+#    only entry, never combined with a category. Older Firefox ignores the key.
 jq '
   .background = { "scripts": ["background.js"] }
   | .browser_specific_settings = {
-      "gecko": { "id": "recipe-catcher@rodgers", "strict_min_version": "121.0" }
+      "gecko": {
+        "id": "recipe-catcher@rodgers",
+        "strict_min_version": "121.0",
+        "data_collection_permissions": { "required": ["none"] }
+      }
     }
 ' "$SRC/manifest.json" > "$OUT/firefox/manifest.json"
 
