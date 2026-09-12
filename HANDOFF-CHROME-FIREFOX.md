@@ -1,16 +1,67 @@
-# Recipe Catcher — Chrome & Firefox Handoff (start here next session)
+# Recipe Catcher — Chrome & Firefox (DONE — submitted 2026-09-11)
 
-Goal: prepare the existing Safari extension to **run and be published on Chrome and
-Firefox**. Safari work is paused (see `HANDOFF.md`); do not touch the Xcode project for
-this.
+Both stores are **submitted and awaiting review**. Nothing here is outstanding; this file
+is kept as the record of what was done and what to know next time.
 
-**Good news up front:** the extension is Manifest V3 and already browser-agnostic — the
-recipe logic is pure JS, and every script uses `const api = typeof browser !== "undefined"
-? browser : chrome;`. **Chrome runs the current `extension/` folder essentially as-is.**
-Firefox needs a few manifest changes. You can develop and test **both for free**; only
-*publishing* costs anything ($5 one-time for Chrome, $0 for Firefox).
+- **Chrome Web Store** — submitted, pending manual review. Expect extra scrutiny of the
+  `<all_urls>` host permission; the justifications are in `store/webstore-listing.md`.
+- **Firefox AMO** — submitted. Validator passed with 0 errors and 10 warnings, all
+  reviewed and benign (see "Known warnings" below).
+- **Safari / App Store** — **paused deliberately**, pending the $99/yr Apple Developer
+  registration. See `HANDOFF.md`, and read "Before resubmitting Safari" below first.
+
+Site: https://bekahperson.github.io/recipe-catcher/ (privacy policy + support page,
+served from `docs/` via GitHub Pages). Repo: https://github.com/bekahperson/recipe-catcher
+Support: recipecatcher.support@gmail.com
 
 ---
+
+## Before resubmitting Safari — read this
+
+1. **`store/review-notes.md` is inaccurate.** It tells App Review the content script
+   "only reads … when the user taps Catch this recipe". It does not: `maybeSuggest()` runs
+   `hasStructuredRecipe(document)` on every page load to decide whether to offer the
+   prompt. Nothing leaves the device either way, but the claim is wrong and it is exactly
+   the sort of discrepancy that invites questions on a broad host permission. The
+   Chrome/AMO copy, the README and `store/privacy-policy.*` were all corrected; this file
+   was left alone because Safari work was paused. **Fix it before resubmitting.**
+2. **Re-sync the extension into the Xcode project** with `scripts/sync-extension.sh` —
+   `extension/` changed materially this session (parser fixes, `activeTab`, regenerated
+   icons). Do NOT run `build-xcode.sh`; it regenerates the project and resets signing.
+3. **`store/appicon/icon-1024.png` must stay opaque.** Apple rejects an alpha channel.
+   `scripts/build-icons.py` deliberately does not touch it.
+4. The App Store listing copy in `store/app-store-listing.md` still assumes the $0.99
+   price tier; Chrome and AMO are listed free.
+
+---
+
+## Known warnings (reviewed, no action needed)
+
+AMO's validator: 0 errors, 10 warnings.
+
+- **8x "Unsafe assignment to innerHTML"** — false positives. Every interpolation of
+  page-derived data passes through `esc()` in `reader.js`, URLs additionally through
+  `safeHref()` (http(s) only), and the rest are integers. `parser.js:22` assigns to a
+  **detached `<textarea>`** purely to decode entities; its content model is RCDATA, so
+  nothing executes. Mozilla's linter flags every `innerHTML` template literal regardless
+  of escaping — it cannot prove safety statically. Wording to reply with is in
+  `store/webstore-listing.md`.
+- **2x "Manifest key not supported by the specified minimum Firefox version"** — real but
+  harmless. `data_collection_permissions` needs Firefox 140; we declare
+  `strict_min_version: 121`, so on 121-139 the key is ignored. Since the declaration is
+  "collects nothing", nothing is concealed from those users. **Bump the floor to `140.0`
+  in `scripts/build-webext.sh` at the next version bump** to clear both warnings.
+
+## Next version — do these together
+
+- Bump `version` in `extension/manifest.json` (single source of truth; the Firefox
+  manifest is derived from it, so it only changes in one place).
+- Raise `strict_min_version` to `140.0` (above).
+- Consider adding `"64"` to `manifest.icons` — `icon-64.png` now exists and Firefox's
+  about:addons uses that size, but it is currently unreferenced by the manifest.
+
+---
+
 
 ## Progress — session of 2026-09-11
 

@@ -1,4 +1,10 @@
-# Recipe Catcher — Handoff (2026-09-11)
+# Recipe Catcher — Safari / App Store Handoff
+
+> **Status (2026-09-11): paused**, pending the $99/yr Apple Developer registration.
+> Chrome and Firefox are both submitted — see `HANDOFF-CHROME-FIREFOX.md`, and read its
+> **"Before resubmitting Safari"** section first: `extension/` changed materially
+> (parser fixes, `activeTab`, regenerated icons) and `store/review-notes.md` contains a
+> claim about page access that is no longer accurate.
 
 Pick-up notes for a fresh session to **finish preparing the extension for App Store
 submission**. The extension is feature-complete, tested, builds for macOS + iOS/iPad, and
