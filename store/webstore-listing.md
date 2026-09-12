@@ -14,10 +14,21 @@ Upload artifacts come from `./scripts/build-webext.sh`:
 ### Name
 `Recipe Catcher`
 
-### Short description / summary (Chrome: 132 max, AMO: 250 max)
-This is also the manifest `description`, which the Chrome Web Store caps at 132 characters
-— `scripts/build-webext.sh` fails the build if it grows past that.
+### Short description / summary
+
+**Chrome (132 max)** — this is also the manifest `description`, which the Web Store caps at
+132 characters; `scripts/build-webext.sh` fails the build if it grows past that:
 `Grab just the ingredients and instructions from any recipe page — no ads, no pop-ups. Clean, printable, metric or imperial.`
+
+**AMO (250 max)** — AMO allows more, so it gets the fuller line (247 chars):
+
+`Grab just the ingredients and instructions from any recipe page — no ads, no pop-ups, no life story. Read them in a clean, printable tab, swap metric and imperial, rescale the servings, and tick off a shopping list. Nothing is tracked or uploaded.`
+
+Alternatives, all within 250 if you prefer a different angle:
+
+- *Benefit-forward (247):* `Skip the pop-ups, autoplaying videos and endless backstory. Recipe Catcher pulls the ingredients and steps out of any recipe page into a clean, printable tab — with metric/imperial, a servings scaler and a shopping list. Offline; collects nothing.`
+- *Plain (247):* `Pulls the ingredients and instructions out of any recipe page and shows them in a clean, printable tab — no ads, no pop-ups. One click between metric and imperial, rescale the servings, tick off a shopping list. Works offline and collects nothing.`
+- *Shortest (230):* `Just the ingredients and instructions from any recipe page, in a clean printable tab. No ads, no pop-ups, no life story. Metric or imperial, a servings scaler and a shopping list. Fully offline — nothing tracked, nothing uploaded.`
 
 ### Full description
 
