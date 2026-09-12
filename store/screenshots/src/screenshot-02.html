@@ -4,8 +4,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#ece5db;--card:#ffffff;--fg:#23201d;--muted:#7a746c;--accent:#b4513a;
-        --panel:#faf8f5;--border:#e7e2da;--rule:#efe9e0;}
+  :root{--bg:#0f0e0c;--card:#221f1c;--fg:#f0ece5;--muted:#a49d93;--accent:#e0785f;
+        --panel:#1a1815;--border:#35312c;--rule:#35312c;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{width:1280px;height:800px;overflow:hidden;}
   body{background:var(--bg);color:var(--fg);
@@ -22,13 +22,13 @@
   .dot{width:14px;height:14px;border-radius:50%;background:var(--accent);flex:0 0 14px;}
   .card{position:absolute;left:654px;top:62px;width:536px;height:680px;
         background:var(--card);border-radius:20px;
-        box-shadow:0 18px 44px rgba(35,32,29,.13);padding:27px;}
+        box-shadow:0 18px 44px rgba(0,0,0,.45);padding:27px;}
   .chead{display:flex;align-items:center;justify-content:space-between;
          padding-bottom:20px;border-bottom:1px solid var(--rule);}
-  .brand{font-size:17px;font-weight:600;color:#4a453f;}
-  .toggle{display:flex;background:#f5f1ea;border-radius:999px;padding:4px;}
-  .toggle span{font-size:13px;font-weight:600;padding:7px 15px;border-radius:999px;color:#5c5751;}
-  .toggle .on{background:var(--accent);color:#ffffff;}
+  .brand{font-size:17px;font-weight:600;color:#c9c2b8;}
+  .toggle{display:flex;background:#2a2622;border-radius:999px;padding:4px;}
+  .toggle span{font-size:13px;font-weight:600;padding:7px 15px;border-radius:999px;color:#a49d93;}
+  .toggle .on{background:var(--accent);color:#191715;}
   .rtitle{margin-top:22px;font-size:31px;line-height:1.15;}
   .meta{margin-top:7px;font-size:15px;color:var(--muted);}
   .times{display:flex;margin-top:26px;}
@@ -46,21 +46,21 @@
   .cal b{font-size:41px;font-weight:700;letter-spacing:-.02em;}
   .cal span{font-size:13px;color:var(--muted);}
   .tiles{display:flex;gap:12px;margin-top:14px;}
-  .tile{flex:1;background:#f5f1ea;border:1px solid var(--border);border-radius:10px;
+  .tile{flex:1;background:#2a2622;border:1px solid var(--border);border-radius:10px;
         padding:11px 0;text-align:center;}
   .tile b{display:block;font-size:15px;font-weight:700;}
   .tile span{font-size:12px;color:var(--muted);}
 </style></head>
 <body>
   <div class="left">
-    <h1 class="serif">Clean and simple.</h1>
-    <p class="sub">Convert, scale, shop, and print.</p>
+    <h1 class="serif">Cook, don't scroll.</h1>
+    <p class="sub">The clean version of any recipe page.</p>
     <ul><li><i class="dot"></i>Metric or imperial in a click</li><li><i class="dot"></i>A tickable shopping list</li><li><i class="dot"></i>Estimated nutrition per serving</li></ul>
   </div>
   <div class="card">
     <div class="chead">
       <div class="brand">Recipe Catcher</div>
-      <div class="toggle"><span class="on">Imperial</span><span class="">Metric</span></div>
+      <div class="toggle"><span class="">Imperial</span><span class="on">Metric</span></div>
     </div>
     <div class="rtitle serif">French Macaron Recipe</div>
     <div class="meta">By John Kanell &middot; Makes 36</div>
@@ -70,7 +70,7 @@
       <div><div class="lbl">TOTAL</div><div class="val">110 min</div></div>
     </div>
     <div class="sechead">INGREDIENTS</div>
-    <ul class="ing"><li><i class="dot"></i>5.9 oz blanched almond flour</li><li><i class="dot"></i>4.2 oz powdered sugar</li><li><i class="dot"></i>3 large egg whites (3.5 oz)</li><li><i class="dot"></i>3.5 oz granulated sugar</li></ul>
+    <ul class="ing"><li><i class="dot"></i>168 g blanched almond flour</li><li><i class="dot"></i>120 g powdered sugar</li><li><i class="dot"></i>3 large egg whites (100 g)</li><li><i class="dot"></i>100 g granulated sugar</li></ul>
     <div class="nutri">
       <div class="h">NUTRITION</div>
       <div class="cal"><b>110</b><span>cal / serving</span></div>

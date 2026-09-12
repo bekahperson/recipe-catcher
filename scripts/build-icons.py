@@ -27,7 +27,7 @@ SVG = os.path.join(ROOT, "extension", "icon.svg")
 OUT = os.path.join(ROOT, "extension", "icons")
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 MASTER = 1024
-SIZES = [16, 32, 48, 128, 256, 512]
+SIZES = [16, 32, 48, 64, 128, 256, 512]   # 64 is AMO's middle listing icon
 
 
 def paeth(a, b, c):

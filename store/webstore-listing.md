@@ -69,14 +69,22 @@ happens on your device, and nothing is ever uploaded.
 
 Both are live, served from `docs/` via GitHub Pages. Source repo: https://github.com/bekahperson/recipe-catcher
 
+### Icons
+`extension/icons/icon-{32,64,128}.png` — the three sizes AMO's listing asks for, all with
+transparent corners. Regenerate with `./scripts/build-icons.py`.
+
 ### Screenshots
 Use `store/screenshots/chrome/*.png` — **1280×800, 24-bit PNG, no alpha**, which is what
-the Chrome Web Store requires (it rejects PNGs with an alpha channel). 01 and 02 are the
-`screenshots/macos/` designs with the redundant, fully-opaque alpha channel stripped, so
-their pixels are unchanged. 03 was rebuilt (the original's headline overflowed behind the
-card and its unit toggle contradicted the amounts shown); its source is
-`store/screenshots/src/screenshot-03.html`, with the re-render command in that file's
-header comment. AMO accepts the same files. Up to 5; at least 1 required.
+the Chrome Web Store requires (it rejects PNGs with an alpha channel). Chrome takes **only** 1280x800 or
+640x400, with no alpha; up to 5, at least 1 required.
+
+**AMO:** use `store/screenshots/amo/*.png` — 2400x1500. AMO recommends up to 2400x1800 and
+a 1.6:1 ratio; 2400x1500 is exactly 1.6:1 and 1.875x of the Chrome set, so it is rendered
+sharp rather than upscaled. AMO sets no practical limit on how many you include.
+
+All three now come from one template, `store/screenshots/src/make-screenshots.py`, which
+writes both sets. (01 and 02 previously existed only as rasters from an external tool,
+which is why 03's overflowing headline could not be fixed without a redraw.)
 
 ### Promo tiles
 Both 24-bit PNG, no alpha, sources in `store/promo/src/` with re-render commands in their
