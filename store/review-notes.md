@@ -15,8 +15,9 @@ HOW TO ENABLE AND TEST (Safari, macOS):
 2. In Safari: Settings → Extensions → turn on "Recipe Catcher".
    (If needed on macOS: Safari → Settings → Advanced → "Show features for web
    developers", so the Extensions pane is available.)
-3. When prompted for site access, allow it (the extension only reads a page when the
-   button is clicked).
+3. When prompted for site access, allow it. (The content script checks each page
+   locally for recipe markup so it can offer the prompt; the recipe itself is extracted
+   only when you click. Nothing leaves the device either way.)
 4. Open any recipe page, for example:
    - https://www.allrecipes.com/recipe/17481/simple-white-cake/
    - https://www.bbcgoodfood.com/recipes/classic-victoria-sandwich
@@ -30,9 +31,13 @@ HOW TO TEST (iOS):
 2. In Safari, open a recipe page (e.g. the links above), tap the extensions button in
    the address bar, choose Recipe Catcher, then "Catch this recipe".
 
-PRIVACY: The extension collects and transmits no data and makes no network requests. A
-content script is present on pages so it can respond instantly, but it only reads and
-extracts a recipe when the user taps "Catch this recipe"; it never modifies pages, and
-it stores only local preferences on the device.
+PRIVACY: The extension collects and transmits no data and makes no network requests.
+A content script runs on the pages the user visits. On each page it inspects the DOM
+locally to determine whether the page contains structured recipe data (schema.org
+Recipe), which is what lets it offer the "Catch this recipe?" prompt; it extracts the
+full recipe only when the user activates it. Both the check and the extraction happen
+entirely on device, nothing is transmitted anywhere, no analytics or accounts exist, and
+pages are never modified. Only local preferences and the most recently captured recipe
+are stored, in local extension storage.
 
 Thank you for reviewing!

@@ -18,16 +18,13 @@ Support: recipecatcher.support@gmail.com
 
 ## Before resubmitting Safari — read this
 
-1. **`store/review-notes.md` is inaccurate.** It tells App Review the content script
-   "only reads … when the user taps Catch this recipe". It does not: `maybeSuggest()` runs
-   `hasStructuredRecipe(document)` on every page load to decide whether to offer the
-   prompt. Nothing leaves the device either way, but the claim is wrong and it is exactly
-   the sort of discrepancy that invites questions on a broad host permission. The
-   Chrome/AMO copy, the README and `store/privacy-policy.*` were all corrected; this file
-   was left alone because Safari work was paused. **Fix it before resubmitting.**
-2. **Re-sync the extension into the Xcode project** with `scripts/sync-extension.sh` —
-   `extension/` changed materially this session (parser fixes, `activeTab`, regenerated
-   icons). Do NOT run `build-xcode.sh`; it regenerates the project and resets signing.
+1. ~~`store/review-notes.md` is inaccurate.~~ **Fixed 2026-09-14.** Both the tester
+   step and the PRIVACY paragraph now say plainly that the content script inspects each
+   page locally to decide whether to offer the prompt, and extracts only on activation.
+2. ~~Re-sync the extension into the Xcode project.~~ **Done 2026-09-14** via
+   `scripts/sync-extension.sh`; the Xcode copy matches `extension/` byte for byte, and
+   both the macOS and iOS targets build. Still do NOT run `build-xcode.sh` for code
+   updates — it regenerates the project and resets signing.
 3. **`store/appicon/icon-1024.png` must stay opaque.** Apple rejects an alpha channel.
    `scripts/build-icons.py` deliberately does not touch it.
 4. The App Store listing copy in `store/app-store-listing.md` still assumes the $0.99

@@ -1,6 +1,18 @@
 # Recipe Catcher — Safari / App Store Handoff
 
-> **Status (2026-09-11): paused**, pending the $99/yr Apple Developer registration.
+> **Status (2026-09-14): code-ready, paused on the $99/yr Apple Developer registration.**
+>
+> Everything that does not need an Apple account is done. `extension/` is synced into the
+> Xcode project, both targets build, `store/review-notes.md` has been corrected, and the
+> deployment targets were raised to **macOS 11.0 / iOS 15.4** — the manifest is MV3 with a
+> background `service_worker`, which Safari supports only from Safari 15.4 / iOS 15.4, so
+> the converter's defaults of 10.14 / 15.0 would have shipped an extension that installs
+> and never runs. `scripts/build-xcode.sh` now re-applies that on every regeneration.
+>
+> To use it on your own Mac today, no account needed:
+> `./scripts/build-app.sh` then follow its printout.
+> For your own iPhone/iPad, open the project in Xcode and press ⌘R with a free Apple ID
+> (7-day provisioning expiry).
 > Chrome and Firefox are both submitted — see `HANDOFF-CHROME-FIREFOX.md`, and read its
 > **"Before resubmitting Safari"** section first: `extension/` changed materially
 > (parser fixes, `activeTab`, regenerated icons) and `store/review-notes.md` contains a

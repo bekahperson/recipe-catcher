@@ -33,6 +33,22 @@ if [ -f "$ICON_SRC" ] && [ -f "$ICON_DST" ]; then
   echo "Installed opaque iOS app icon (no alpha channel)."
 fi
 
+# The converter defaults to macOS 10.14 / iOS 15.0, but extension/manifest.json is
+# MV3 with a background service_worker, and Safari only supports that from Safari
+# 15.4 / iOS 15.4. macOS Mojave tops out at Safari 14, so a 10.14 build would
+# install happily and then never run — the worst kind of failure. Raise the floors
+# to OS versions that can actually reach Safari 15.4.
+# (Safari updates semi-independently of macOS, so a Big Sur user may still need to
+# update Safari itself; the OS floor only rules out those who cannot.)
+PBX="$DIR/Recipe Catcher/Recipe Catcher.xcodeproj/project.pbxproj"
+if [ -f "$PBX" ]; then
+  sed -i '' \
+    -e 's/MACOSX_DEPLOYMENT_TARGET = [0-9.]*/MACOSX_DEPLOYMENT_TARGET = 11.0/g' \
+    -e 's/IPHONEOS_DEPLOYMENT_TARGET = [0-9.]*/IPHONEOS_DEPLOYMENT_TARGET = 15.4/g' \
+    "$PBX"
+  echo "Set deployment targets to macOS 11.0 / iOS 15.4 (Safari 15.4 service_worker floor)."
+fi
+
 echo
 echo "Generated: $DIR/Recipe Catcher/Recipe Catcher.xcodeproj"
 echo "Open it in Xcode, or build the macOS app:"

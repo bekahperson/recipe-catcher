@@ -68,3 +68,10 @@ Extensions, then click the Recipe Catcher button on any recipe page.
 ## Pricing
 - Price: **$0.99** (Tier 1). Requires the Paid Applications Agreement + banking/tax
   info completed in App Store Connect → Business, or the price will be locked to Free.
+
+## Minimum OS versions
+**macOS 11.0, iOS/iPadOS 15.4.** Not arbitrary: the extension is Manifest V3 with a
+background `service_worker`, which Safari supports only from **Safari 15.4 / iOS 15.4**
+(per MDN browser-compat-data). macOS Mojave tops out at Safari 14, so the converter's
+default floor of 10.14 would have let users install something that could never run.
+Set in `scripts/build-xcode.sh`, which re-applies it whenever the project is regenerated.
